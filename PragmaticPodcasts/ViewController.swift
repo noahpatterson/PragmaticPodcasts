@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    private var player: AVPlayer?
+    var player: AVPlayer?
     
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var trackLabel: UILabel!
