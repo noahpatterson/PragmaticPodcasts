@@ -31,6 +31,12 @@ class PragmaticPodcastsUITests: XCTestCase {
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let app = XCUIApplication()
+        app.buttons["Play"].tap()
+        XCTAssertTrue(app.buttons["Pause"].exists)
+        XCTAssertTrue(app.staticTexts["marc.mp3"].exists)
+        
     }
     
 }
