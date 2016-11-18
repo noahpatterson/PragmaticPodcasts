@@ -84,11 +84,10 @@ class ViewController: UIViewController {
         
         //closure
         let timeInterval = CMTime(seconds: 0.25, preferredTimescale: 1000)
-        playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval,
-                                                                 queue: nil,
-                                                                 using:
-            { currentTime in self.updateTimeLabel(currentTime) })
-            
+        playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval, queue: nil) {
+            currentTime in self.updateTimeLabel(currentTime)
+        }
+        
             /* closure syntax
             { paramName1, paramName2, ... -> returnType ​in​ code... }
             */
