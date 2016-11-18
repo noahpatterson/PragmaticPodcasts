@@ -12,6 +12,7 @@ import AVFoundation
 class ViewController: UIViewController {
     
     var player: AVPlayer?
+    var playerPeriodicObserver: Any?
     
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var trackLabel: UILabel!
@@ -40,6 +41,9 @@ class ViewController: UIViewController {
 
     deinit {
         player?.removeObserver(self, forKeyPath: "rate")
+        if let oldObserver = playerPeriodicObserver {
+            player?.removeTimeObserver(oldObserver)
+        }
     }
     
 
@@ -66,6 +70,17 @@ class ViewController: UIViewController {
                             forKeyPath: "rate",
                             options: [],
                             context: nil)
+        
+        //closure
+        let timeInterval = CMTime(seconds: 0.25, preferredTimescale: 1000)
+        playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval,
+                                                                 queue: nil,
+                                                                 using:
+            { currentTime in NSLog("current time \(currentTime.seconds)") })
+            
+            /* closure syntax
+            { paramName1, paramName2, ... -> returnType ​in​ code... }
+            */
     }
 }
 
