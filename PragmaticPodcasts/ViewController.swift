@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var trackLabel: UILabel!
+    @IBOutlet var trackTimeLabel: UILabel!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +64,15 @@ class ViewController: UIViewController {
         
     }
     
+    func updateTimeLabel(_ currentTime: CMTime) {
+        let secondsInMinute: Double = 60.0
+        let totalSeconds = currentTime.seconds
+        let minutes      = Int(totalSeconds/secondsInMinute)
+        let seconds      = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
+        let secondsString = seconds >= 10 ? "\(seconds)" : "0\(seconds)"
+        trackTimeLabel.text = "\(minutes):\(secondsString)"
+    }
+    
     func setURL(url: URL) {
         player = AVPlayer(url: url)
         trackLabel.text = url.lastPathComponent
@@ -76,7 +87,7 @@ class ViewController: UIViewController {
         playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval,
                                                                  queue: nil,
                                                                  using:
-            { currentTime in NSLog("current time \(currentTime.seconds)") })
+            { currentTime in self.updateTimeLabel(currentTime) })
             
             /* closure syntax
             { paramName1, paramName2, ... -> returnType ​in​ code... }
