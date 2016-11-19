@@ -85,6 +85,9 @@ class ViewController: UIViewController {
         //closure
         let timeInterval = CMTime(seconds: 0.25, preferredTimescale: 1000)
         playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval, queue: nil) {
+            // Reference Cycle
+            //example of reference cycle. `player` has a reference to the closure but the closure has a reference to `self`.
+            // “ViewController forces the player to remain in memory, and the closure we passed to the player keeps the ViewController in memory.”
             currentTime in self.updateTimeLabel(currentTime)
         }
         
