@@ -84,15 +84,20 @@ class ViewController: UIViewController {
         
         //closure
         let timeInterval = CMTime(seconds: 0.25, preferredTimescale: 1000)
-        playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval, queue: nil) {
-            // Reference Cycle
-            //example of reference cycle. `player` has a reference to the closure but the closure has a reference to `self`.
-            // “ViewController forces the player to remain in memory, and the closure we passed to the player keeps the ViewController in memory.”
-            currentTime in self.updateTimeLabel(currentTime)
-        }
-        
+        // Reference Cycle
+        //example of reference cycle. `player` has a reference to the closure but the closure has a reference to `self`.
+        // “ViewController forces the player to remain in memory, and the closure we passed to the player keeps the ViewController in memory.”
+        //playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval, queue: nil) {
+        //                currentTime in self.updateTimeLabel(currentTime)
+        //}
+          playerPeriodicObserver = player?.addPeriodicTimeObserver(forInterval: timeInterval, queue: nil) {
+                [weak self] currentTime in self?.updateTimeLabel(currentTime)
+          }
             /* closure syntax
             { paramName1, paramName2, ... -> returnType ​in​ code... }
+         
+               weak reference closure syntax
+            { [​weak​ capturedVar1, ...] paramName1, ... -> returnType ​in​ code... }
             */
     }
 }
