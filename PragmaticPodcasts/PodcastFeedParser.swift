@@ -12,6 +12,8 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     var currentFeed: PodcastFeed?
     var currentElementText: String?
     var episodeParser: PodcastEpisodeParser?
+    // a closure that has no arguments and returns no value. Optional.
+    var onParserFinished: (() -> Void)?
     
     init(contentsOf url: URL) {
         super.init()
@@ -84,6 +86,7 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        NSLog("parsing done, feed is \(currentFeed)")
+//        NSLog("parsing done, feed is \(currentFeed)")
+        onParserFinished?()
     }
 }

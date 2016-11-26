@@ -12,7 +12,14 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
 
     @IBOutlet var table: UITableView!
     
-    var feeds: [PodcastFeed] = []
+    var feeds: [PodcastFeed] = [] {
+        didSet {
+            //use main queue because it touches the UI by reloading feeds. We cannot gaurntee that the thing setting 'feeds' is doing so on the main queue.
+            DispatchQueue.main.async {
+                self.table.reloadData()
+            }
+        }
+    }
     
     //number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
