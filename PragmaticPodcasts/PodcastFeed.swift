@@ -15,5 +15,6 @@ struct PodcastFeed {
     var description:    String?
     var itunesAuthor:   String?
     var itunesImageUrl: URL?
+    var episodes      : [PodcastEpisode] = []
 }
 

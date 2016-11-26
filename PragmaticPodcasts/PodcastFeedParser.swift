@@ -11,6 +11,7 @@ import Foundation
 class PodcastFeedParser: NSObject, XMLParserDelegate {
     var currentFeed: PodcastFeed?
     var currentElementText: String?
+    var episodeParser: PodcastEpisodeParser?
     
     init(contentsOf url: URL) {
         super.init()
@@ -30,7 +31,8 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
         dataTask.resume()
     }
     
-    // MARK: - XMLParserDelegate implementation​
+    // MARK: - XMLParserDelegate implementation​ - 
+    //XMLParserDelegate is tedious but it “saves the memory hit of creating an entire DOM that we might only want a tiny fraction of”
     func parserDidStartDocument(_ parser: XMLParser) {
         NSLog("parserDidStartDocument, currently on line: \(parser.lineNumber)")
         currentFeed = PodcastFeed()
@@ -42,8 +44,8 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
             case "title", "link", "description", "itunes:image", "itunes:author":
                 currentElementText = ""
             case "item":
-                parser.abortParsing()
-                NSLog("aborted parsing. podcastFeed = \(currentFeed)")
+                episodeParser = PodcastEpisodeParser(feedParser: self, xmlParser: parser)
+                parser.delegate = episodeParser
             default:
                 currentElementText = nil
             }
@@ -71,8 +73,17 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
             if let urlText = currentElementText {
                 currentFeed?.itunesImageUrl = URL(string: urlText)
             }
+        case "item":
+            if let episode = episodeParser?.currentEpisode {
+                currentFeed?.episodes.append(episode)
+            }
+            episodeParser = nil
         default:
             break
         }
+    }
+    
+    func parserDidEndDocument(_ parser: XMLParser) {
+        ​NSLog("parsing done, feed is \(currentFeed)")
     }
 }
