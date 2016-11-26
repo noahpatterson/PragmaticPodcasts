@@ -84,6 +84,6 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        ​NSLog("parsing done, feed is \(currentFeed)")
+        NSLog("parsing done, feed is \(currentFeed)")
     }
 }
