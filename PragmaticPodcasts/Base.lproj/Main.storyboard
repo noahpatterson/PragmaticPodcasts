@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C48b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C48b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wPZ-Bu-qlC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -62,12 +62,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79.200000000000003" y="138.98050974512745"/>
+            <point key="canvasLocation" x="201" y="139"/>
         </scene>
-        <!--View Controller-->
+        <!--Episode List View Controller-->
         <scene sceneID="lSw-AR-Jgi">
             <objects>
-                <viewController id="wPZ-Bu-qlC" sceneMemberID="viewController">
+                <viewController id="wPZ-Bu-qlC" customClass="EpisodeListViewController" customModule="PragmaticPodcasts" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Df-9t-Qrb"/>
                         <viewControllerLayoutGuide type="bottom" id="HDE-Kp-VRV"/>
@@ -79,6 +79,13 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MOt-cK-Arw">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="A86-Sd-RIZ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="wPZ-Bu-qlC" id="HaF-bR-yw5"/>
+                                    <outlet property="delegate" destination="wPZ-Bu-qlC" id="Er3-JX-EGI"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,10 +96,13 @@
                             <constraint firstItem="MOt-cK-Arw" firstAttribute="top" secondItem="1Df-9t-Qrb" secondAttribute="bottom" id="l3k-TX-ZKY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="table" destination="MOt-cK-Arw" id="u5k-UC-aEb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ymd-5X-7KO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="684" y="102"/>
+            <point key="canvasLocation" x="-572" y="139"/>
         </scene>
     </scenes>
 </document>

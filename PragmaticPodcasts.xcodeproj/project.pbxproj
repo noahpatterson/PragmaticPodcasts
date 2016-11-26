@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A1C36951DE91E2800C58633 /* PodcastEpisodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C36941DE91E2800C58633 /* PodcastEpisodeParser.swift */; };
+		5A1C36971DE9D56D00C58633 /* EpisodeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C36961DE9D56D00C58633 /* EpisodeListViewController.swift */; };
 		5A31F0CB1DE11B1000012E12 /* PodcastFeedParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31F0CA1DE11B1000012E12 /* PodcastFeedParser.swift */; };
 		5A31F0CD1DE120B100012E12 /* PodcastFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31F0CC1DE120B100012E12 /* PodcastFeed.swift */; };
 		5A31F0CF1DE1219400012E12 /* PodcastEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31F0CE1DE1219400012E12 /* PodcastEpisode.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		5A1C36941DE91E2800C58633 /* PodcastEpisodeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisodeParser.swift; sourceTree = "<group>"; };
+		5A1C36961DE9D56D00C58633 /* EpisodeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeListViewController.swift; sourceTree = "<group>"; };
 		5A31F0CA1DE11B1000012E12 /* PodcastFeedParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastFeedParser.swift; sourceTree = "<group>"; };
 		5A31F0CC1DE120B100012E12 /* PodcastFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastFeed.swift; sourceTree = "<group>"; };
 		5A31F0CE1DE1219400012E12 /* PodcastEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastEpisode.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				5A1C36941DE91E2800C58633 /* PodcastEpisodeParser.swift */,
 				5A31F0CE1DE1219400012E12 /* PodcastEpisode.swift */,
 				5A823C571DD9F1B900A05A62 /* Main.storyboard */,
+				5A1C36961DE9D56D00C58633 /* EpisodeListViewController.swift */,
 				5A823C5A1DD9F1B900A05A62 /* Assets.xcassets */,
 				5A823C5C1DD9F1B900A05A62 /* LaunchScreen.storyboard */,
 				5A823C5F1DD9F1B900A05A62 /* Info.plist */,
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A31F0CF1DE1219400012E12 /* PodcastEpisode.swift in Sources */,
+				5A1C36971DE9D56D00C58633 /* EpisodeListViewController.swift in Sources */,
 				5A823C561DD9F1B900A05A62 /* ViewController.swift in Sources */,
 				5A31F0CB1DE11B1000012E12 /* PodcastFeedParser.swift in Sources */,
 				5A1C36951DE91E2800C58633 /* PodcastEpisodeParser.swift in Sources */,
