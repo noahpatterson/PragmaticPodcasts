@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             parser.onParserFinished = {
                 [weak episodeListVC] in
                 if let feed = parser.currentFeed {
-                    episodeListVC?.feeds.append(feed)
+                    episodeListVC?.feeds = [feed]
                 }
             }
         }

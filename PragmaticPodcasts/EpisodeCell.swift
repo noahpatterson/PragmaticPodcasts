@@ -14,6 +14,8 @@ class EpisodeCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var durationLabel: UILabel!
     
+    var loadingImageUrl: URL?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

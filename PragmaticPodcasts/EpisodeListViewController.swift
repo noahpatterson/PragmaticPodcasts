@@ -38,9 +38,23 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
         
         cell.titleLabel.text    = episode.title
         cell.durationLabel.text = episode.itunesDuration
-        return cell
         
-        
+        //image
+        cell.artworkImageView.image = nil
+        if let url = episode.itunesImageURL {
+            cell.loadingImageUrl = url
+            let session = URLSession(configuration: .default)
+            let dataTask = session.dataTask(with: url) {
+                dataMb, responseMb, errorMb in
+                if let data = dataMb, url == cell.loadingImageUrl {
+                    DispatchQueue.main.async {
+                        cell.artworkImageView.image = UIImage(data: data)
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+        return cell   
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

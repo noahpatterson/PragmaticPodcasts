@@ -43,8 +43,13 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     //callback that knows when we find a element we are looking for
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
-            case "title", "link", "description", "itunes:image", "itunes:author":
+            case "title", "link", "description", "itunes:author":
                 currentElementText = ""
+            case "itunes:image":
+                if let href = attributeDict["href"], let url = URL(string: href) {
+                    currentFeed?.itunesImageUrl = url
+                }
+                fallthrough
             case "item":
                 episodeParser = PodcastEpisodeParser(feedParser: self, xmlParser: parser)
                 parser.delegate = episodeParser
@@ -71,10 +76,6 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
                 currentFeed?.description = currentElementText
         case "itunes:author":
             currentFeed?.itunesAuthor = currentElementText
-        case "itunes:image":
-            if let urlText = currentElementText {
-                currentFeed?.itunesImageUrl = URL(string: urlText)
-            }
         case "item":
             if let episode = episodeParser?.currentEpisode {
                 currentFeed?.episodes.append(episode)
