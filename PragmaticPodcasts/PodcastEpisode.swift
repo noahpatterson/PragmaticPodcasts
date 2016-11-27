@@ -9,6 +9,8 @@
 import Foundation
 
 struct PodcastEpisode {
-    var title: String?
-    var episodeUrl: URL?
+    var title:          String?
+    var episodeUrl:     URL?
+    var itunesDuration: String?
+    var itunesImageURL: URL?
 }

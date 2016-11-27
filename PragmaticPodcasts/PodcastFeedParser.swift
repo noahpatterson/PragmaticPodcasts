@@ -67,7 +67,7 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
             if let linkText = currentElementText {
                 currentFeed?.link = URL(string: linkText)
             }
-        case "descrtiption":
+        case "description":
                 currentFeed?.description = currentElementText
         case "itunes:author":
             currentFeed?.itunesAuthor = currentElementText

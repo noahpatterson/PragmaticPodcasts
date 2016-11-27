@@ -34,9 +34,13 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
     //populate the episode cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let episode = feeds[indexPath.section].episodes[indexPath.row]
-        let cell    = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = episode.title
+        let cell    = table.dequeueReusableCell(withIdentifier: "EpisodeCell", for: indexPath) as! EpisodeCell
+        
+        cell.titleLabel.text    = episode.title
+        cell.durationLabel.text = episode.itunesDuration
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

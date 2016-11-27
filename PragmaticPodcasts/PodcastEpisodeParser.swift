@@ -22,7 +22,7 @@ class PodcastEpisodeParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
-        case "title":
+        case "title", "itunes:duration", "itunes:image":
             currentElementText = ""
         case "enclosure":
             if let href = attributeDict["url"], let url = URL(string: href) {
@@ -42,6 +42,12 @@ class PodcastEpisodeParser: NSObject, XMLParserDelegate {
         switch elementName {
         case "title":
             currentEpisode.title = currentElementText
+        case "itunes:duration":
+            currentEpisode.itunesDuration = currentElementText
+        case "itunes:image":
+            if let urlText = currentElementText {
+                currentEpisode.itunesImageURL = URL(string: urlText)
+            }
         case "item":
             parser.delegate = feedParser
             feedParser.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
