@@ -31,6 +31,7 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
         return feeds[section].episodes.count
     }
   
+    //populate the episode cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let episode = feeds[indexPath.section].episodes[indexPath.row]
         let cell    = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -38,4 +39,7 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return feeds[section].title
+    }
 }
