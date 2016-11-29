@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C48b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wPZ-Bu-qlC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C48b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KQe-8C-gsp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Player-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="PlayerViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="PragmaticPodcasts" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlayerViewController" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="PlayerViewController" customModule="PragmaticPodcasts" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pqt-Xv-snX">
-                                <rect key="frame" x="16" y="20" width="57" height="48"/>
+                                <rect key="frame" x="16" y="64" width="57" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
@@ -31,13 +31,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPB-Sb-bY5">
-                                <rect key="frame" x="295" y="26" width="64" height="36"/>
+                                <rect key="frame" x="295" y="70" width="64" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vp1-LR-yNx">
-                                <rect key="frame" x="16" y="76" width="343" height="21"/>
+                                <rect key="frame" x="16" y="120" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -54,6 +54,7 @@
                             <constraint firstItem="pqt-Xv-snX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="vfU-2r-hbs"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Player" id="lLQ-zr-I6J"/>
                     <connections>
                         <outlet property="playPauseButton" destination="pqt-Xv-snX" id="cE3-wq-bH9"/>
                         <outlet property="trackLabel" destination="Vp1-LR-yNx" id="exn-Ab-5x6"/>
@@ -64,10 +65,26 @@
             </objects>
             <point key="canvasLocation" x="201" y="139"/>
         </scene>
-        <!--Episode List View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="kmm-gG-SSZ">
+            <objects>
+                <navigationController id="KQe-8C-gsp" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JiE-fb-O4G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="wPZ-Bu-qlC" kind="relationship" relationship="rootViewController" id="Rp6-oG-QrW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sgv-B1-eo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1439" y="139"/>
+        </scene>
+        <!--Podcasts-->
         <scene sceneID="lSw-AR-Jgi">
             <objects>
-                <viewController id="wPZ-Bu-qlC" customClass="EpisodeListViewController" customModule="PragmaticPodcasts" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="wPZ-Bu-qlC" customClass="EpisodeListViewController" customModule="PragmaticPodcasts" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Df-9t-Qrb"/>
                         <viewControllerLayoutGuide type="bottom" id="HDE-Kp-VRV"/>
@@ -77,7 +94,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MOt-cK-Arw">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="A86-Sd-RIZ"/>
@@ -87,7 +104,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uEZ-7f-d8i" id="qpf-0n-Nxu">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ZW-03-1ce">
@@ -125,6 +142,7 @@
                                             <outlet property="artworkImageView" destination="7ZW-03-1ce" id="PYN-1o-NRF"/>
                                             <outlet property="durationLabel" destination="yYr-9e-zKV" id="1g4-Hb-9l4"/>
                                             <outlet property="titleLabel" destination="5nX-8O-YnN" id="5oA-GR-4jb"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="showPlayer" id="QaH-kl-HCh"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -142,6 +160,7 @@
                             <constraint firstItem="MOt-cK-Arw" firstAttribute="top" secondItem="1Df-9t-Qrb" secondAttribute="bottom" id="l3k-TX-ZKY"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Podcasts" id="rE7-pJ-gQB"/>
                     <connections>
                         <outlet property="table" destination="MOt-cK-Arw" id="u5k-UC-aEb"/>
                     </connections>

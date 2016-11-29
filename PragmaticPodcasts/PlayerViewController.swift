@@ -9,24 +9,24 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class PlayerViewController: UIViewController {
     
     var player: AVPlayer?
     var playerPeriodicObserver: Any?
     
+    var episode: PodcastEpisode? {
+        didSet {
+            loadViewIfNeeded()
+            trackLabel.text = episode?.title
+            if let url = episode?.episodeUrl {
+                setURL(url: url)
+            }
+        }
+    }
+    
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet var trackTimeLabel: UILabel!
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let url = URL(string: "http://traffic.libsyn.com/cocoaconf/marc.mp3") {
-            setURL(url: url)
-        } else {
-            NSLog("error with url")
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,7 +75,6 @@ class ViewController: UIViewController {
     
     func setURL(url: URL) {
         player = AVPlayer(url: url)
-        trackLabel.text = url.lastPathComponent
         // kvo
         player?.addObserver(self,
                             forKeyPath: "rate",
@@ -99,6 +98,7 @@ class ViewController: UIViewController {
                weak reference closure syntax
             { [​weak​ capturedVar1, ...] paramName1, ... -> returnType ​in​ code... }
             */
+        player?.play()
     }
 }
 
