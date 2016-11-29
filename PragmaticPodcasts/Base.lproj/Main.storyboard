@@ -81,6 +81,60 @@
             </objects>
             <point key="canvasLocation" x="-1439" y="139"/>
         </scene>
+        <!--Add Podcast View Controller-->
+        <scene sceneID="u4i-5m-dtH">
+            <objects>
+                <viewController id="2hT-wH-dYR" customClass="AddPodcastViewController" customModule="PragmaticPodcasts" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gGo-Yc-Qce"/>
+                        <viewControllerLayoutGuide type="bottom" id="Htz-xF-i5C"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GvR-N0-hcn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bnz-OW-brE">
+                                <rect key="frame" x="85.5" y="262" width="204.5" height="144"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Podcast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRM-Xu-dyo">
+                                        <rect key="frame" x="24.5" y="0.0" width="155.5" height="33.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter URL of the new Feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MF-TY-7JU">
+                                        <rect key="frame" x="0.0" y="43.5" width="204.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="https://example.com/rss" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6zh-MR-cdk">
+                                        <rect key="frame" x="13" y="74" width="178" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m34-NK-Ria">
+                                        <rect key="frame" x="83.5" y="114" width="37" height="30"/>
+                                        <state key="normal" title="Done"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Bnz-OW-brE" firstAttribute="centerX" secondItem="GvR-N0-hcn" secondAttribute="centerX" id="ASR-Yb-eS6"/>
+                            <constraint firstItem="Bnz-OW-brE" firstAttribute="centerY" secondItem="GvR-N0-hcn" secondAttribute="centerY" id="zGg-3C-zkQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="urlField" destination="6zh-MR-cdk" id="SQx-8I-VJB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nGB-DQ-TtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-572" y="-556.37181409295351"/>
+        </scene>
         <!--Podcasts-->
         <scene sceneID="lSw-AR-Jgi">
             <objects>
@@ -160,7 +214,13 @@
                             <constraint firstItem="MOt-cK-Arw" firstAttribute="top" secondItem="1Df-9t-Qrb" secondAttribute="bottom" id="l3k-TX-ZKY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Podcasts" id="rE7-pJ-gQB"/>
+                    <navigationItem key="navigationItem" title="Podcasts" id="rE7-pJ-gQB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="jah-SD-bWi">
+                            <connections>
+                                <segue destination="2hT-wH-dYR" kind="presentation" id="foy-Rs-k4S"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="table" destination="MOt-cK-Arw" id="u5k-UC-aEb"/>
                     </connections>
