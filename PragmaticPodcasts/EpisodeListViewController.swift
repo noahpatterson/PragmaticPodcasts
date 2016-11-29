@@ -21,6 +21,10 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    @IBAction func unWindToEpisodeList(_ segue: UIStoryboardSegue) {
+        
+    }
+    
     //number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
         return feeds.count

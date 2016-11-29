@@ -117,6 +117,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m34-NK-Ria">
                                         <rect key="frame" x="83.5" y="114" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
+                                        <connections>
+                                            <segue destination="gsO-oq-slB" kind="unwind" unwindAction="unWindToEpisodeList:" id="OMy-vx-rW1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -132,6 +135,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nGB-DQ-TtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gsO-oq-slB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-572" y="-556.37181409295351"/>
         </scene>
