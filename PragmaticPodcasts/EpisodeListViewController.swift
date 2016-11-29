@@ -22,7 +22,15 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func unWindToEpisodeList(_ segue: UIStoryboardSegue) {
-        
+        if let addPodcastVC = segue.source as? AddPodcastViewController, let urlText = addPodcastVC.urlField.text, let url = URL(string: urlText) {
+            let parser = PodcastFeedParser(contentsOf: url)
+            parser.onParserFinished = {
+                [weak self] in
+                if let feed = parser.currentFeed {
+                    self?.feeds.append(feed)
+                }
+            }
+        }
     }
     
     //number of sections
