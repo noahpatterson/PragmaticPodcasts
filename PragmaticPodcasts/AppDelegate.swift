@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    lazy var coreDataStack = CoreDataStack()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -42,11 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //refresh podcast list when app fully launches and ui is present or and restore from background
 //        if let url = URL(string: "http://cocoaconf.libsyn.com/rss"), let episodeListVC = application.keyWindow?.rootViewController as? EpisodeListViewController {
         if let url = URL(string: "http://cocoaconf.libsyn.com/rss"), let topNav = application.keyWindow?.rootViewController as? UINavigationController, let episodeListVC = topNav.viewControllers.first as? EpisodeListViewController {
-            let parser = PodcastFeedParser(contentsOf: url)
+            let objectContext = coreDataStack.persistentContainer.viewContext
+            let parser = PodcastFeedParser(contentsOf: url, sharedObjectContext: objectContext)
             parser.onParserFinished = {
-                [weak episodeListVC] in
+                [weak episodeListVC, weak self] in
                 if let feed = parser.currentFeed {
                     episodeListVC?.feeds = [feed]
+                    
+                    
                 }
             }
         }
@@ -54,8 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        coreDataStack.saveContext()
     }
-
 
 }
 

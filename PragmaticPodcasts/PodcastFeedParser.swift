@@ -7,15 +7,22 @@
 //
 
 import Foundation
+import CoreData
 
 class PodcastFeedParser: NSObject, XMLParserDelegate {
     var currentFeed: PodcastFeed?
     var currentElementText: String?
     var episodeParser: PodcastEpisodeParser?
     // a closure that has no arguments and returns no value. Optional.
+    var context: NSManagedObjectContext
+    var feed: Feed
+    
     var onParserFinished: (() -> Void)?
     
-    init(contentsOf url: URL) {
+    init(contentsOf url: URL, sharedObjectContext: NSManagedObjectContext) {
+        
+        context = sharedObjectContext
+        feed    = Feed(context: context)
         super.init()
     
         let urlSession = URLSession(configuration: .default)
@@ -48,6 +55,7 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
             case "itunes:image":
                 if let href = attributeDict["href"], let url = URL(string: href) {
                     currentFeed?.itunesImageUrl = url
+                    feed.itunesImageUrl = href
                 }
                 fallthrough
             case "item":
@@ -68,14 +76,18 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
         switch elementName {
         case "title":
             currentFeed?.title = currentElementText
+            feed.title = currentElementText
         case "link":
             if let linkText = currentElementText {
                 currentFeed?.link = URL(string: linkText)
+                feed.link = linkText
             }
         case "description":
                 currentFeed?.description = currentElementText
+                feed.feedDescription = currentElementText
         case "itunes:author":
             currentFeed?.itunesAuthor = currentElementText
+            feed.itunesAuthor = currentElementText
         case "item":
             if let episode = episodeParser?.currentEpisode {
                 currentFeed?.episodes.append(episode)
@@ -88,6 +100,13 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     
     func parserDidEndDocument(_ parser: XMLParser) {
 //        NSLog("parsing done, feed is \(currentFeed)")
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch let error as NSError {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
         onParserFinished?()
     }
 }

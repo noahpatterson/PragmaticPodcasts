@@ -21,9 +21,12 @@ class EpisodeListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    
     @IBAction func unWindToEpisodeList(_ segue: UIStoryboardSegue) {
         if let addPodcastVC = segue.source as? AddPodcastViewController, let urlText = addPodcastVC.urlField.text, let url = URL(string: urlText) {
-            let parser = PodcastFeedParser(contentsOf: url)
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            let context     = appDelegate?.coreDataStack.persistentContainer.viewContext
+            let parser = PodcastFeedParser(contentsOf: url, sharedObjectContext: context!)
             parser.onParserFinished = {
                 [weak self] in
                 if let feed = parser.currentFeed {
