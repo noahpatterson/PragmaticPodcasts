@@ -46,11 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let objectContext = coreDataStack.persistentContainer.viewContext
             let parser = PodcastFeedParser(contentsOf: url, sharedObjectContext: objectContext)
             parser.onParserFinished = {
-                [weak episodeListVC, weak self] in
+                [weak episodeListVC] in
                 if let feed = parser.currentFeed {
                     episodeListVC?.feeds = [feed]
-                    
-                    
                 }
             }
         }

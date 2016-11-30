@@ -5,7 +5,12 @@
         <attribute name="itunesDuration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itunesImageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="feed" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="episodes" inverseEntity="Feed" syncable="YES"/>
+        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="episodes" inverseEntity="Feed" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="episodeUrl"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="class">
         <attribute name="feedDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,9 +19,14 @@
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Episode" inverseName="feed" inverseEntity="Episode" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="link"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Episode" positionX="-54" positionY="9" width="128" height="120"/>
-        <element name="Feed" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Episode" positionX="-54" positionY="9" width="128" height="28"/>
+        <element name="Feed" positionX="-344" positionY="-63" width="128" height="28"/>
     </elements>
 </model>

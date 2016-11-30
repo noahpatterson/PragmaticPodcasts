@@ -11,6 +11,7 @@ class CoreDataStack {
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "FeedModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             if let error = error {
 //                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
