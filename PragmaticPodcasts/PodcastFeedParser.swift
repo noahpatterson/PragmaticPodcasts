@@ -13,10 +13,10 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     var currentFeed: PodcastFeed?
     var currentElementText: String?
     var episodeParser: PodcastEpisodeParser?
-    // a closure that has no arguments and returns no value. Optional.
     var context: NSManagedObjectContext
     var feed: Feed
     
+    // a closure that has no arguments and returns no value. Optional.
     var onParserFinished: (() -> Void)?
     
     init(contentsOf url: URL, sharedObjectContext: NSManagedObjectContext) {
@@ -59,7 +59,7 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
                 }
                 fallthrough
             case "item":
-                episodeParser = PodcastEpisodeParser(feedParser: self, xmlParser: parser)
+                episodeParser = PodcastEpisodeParser(feedParser: self, xmlParser: parser, sharedObject: context)
                 parser.delegate = episodeParser
             default:
                 currentElementText = nil
@@ -89,8 +89,9 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
             currentFeed?.itunesAuthor = currentElementText
             feed.itunesAuthor = currentElementText
         case "item":
-            if let episode = episodeParser?.currentEpisode {
+            if let episode = episodeParser?.currentEpisode, let episodeData = episodeParser?.episode {
                 currentFeed?.episodes.append(episode)
+                feed.addToEpisodes(episodeData)
             }
             episodeParser = nil
         default:

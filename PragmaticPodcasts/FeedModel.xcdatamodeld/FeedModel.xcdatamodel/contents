@@ -5,7 +5,7 @@
         <attribute name="itunesDuration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itunesImageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="episodes" inverseEntity="Feed" syncable="YES"/>
+        <relationship name="feed" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="episodes" inverseEntity="Feed" syncable="YES"/>
     </entity>
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="class">
         <attribute name="feedDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,10 +13,10 @@
         <attribute name="itunesImageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="episodes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Episode" inverseName="feed" inverseEntity="Episode" syncable="YES"/>
+        <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Episode" inverseName="feed" inverseEntity="Episode" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="-63" positionY="-18" width="128" height="133"/>
-        <element name="Episode" positionX="-54" positionY="9" width="128" height="30"/>
+        <element name="Episode" positionX="-54" positionY="9" width="128" height="120"/>
+        <element name="Feed" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>

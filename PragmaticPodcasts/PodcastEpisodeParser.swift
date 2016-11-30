@@ -7,15 +7,22 @@
 //
 
 import Foundation
+import CoreData
 
 class PodcastEpisodeParser: NSObject, XMLParserDelegate {
     let feedParser: PodcastFeedParser
     var currentEpisode: PodcastEpisode
     var currentElementText: String?
     
-    init(feedParser: PodcastFeedParser, xmlParser: XMLParser) {
+    //core data
+    var context: NSManagedObjectContext
+    var episode: Episode
+    
+    init(feedParser: PodcastFeedParser, xmlParser: XMLParser, sharedObject: NSManagedObjectContext) {
         self.feedParser = feedParser
         self.currentEpisode = PodcastEpisode()
+        self.context = sharedObject
+        self.episode = Episode(context: context)
         super.init()
         xmlParser.delegate = self
     }
@@ -27,11 +34,13 @@ class PodcastEpisodeParser: NSObject, XMLParserDelegate {
         case "enclosure":
             if let href = attributeDict["url"], let url = URL(string: href) {
                 currentEpisode.episodeUrl = url
+                episode.episodeUrl = href
             }
             fallthrough
         case "itunes:image":
             if let href = attributeDict["href"], let url = URL(string: href) {
                 currentEpisode.itunesImageURL = url
+                episode.itunesImageUrl = href
             }
             fallthrough
         default:
@@ -47,8 +56,10 @@ class PodcastEpisodeParser: NSObject, XMLParserDelegate {
         switch elementName {
         case "title":
             currentEpisode.title = currentElementText
+            episode.title        = currentElementText
         case "itunes:duration":
             currentEpisode.itunesDuration = currentElementText
+            episode.itunesDuration        = currentElementText
         case "item":
             parser.delegate = feedParser
             feedParser.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
