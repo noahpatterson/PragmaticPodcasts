@@ -11,7 +11,7 @@ import CoreData
 
 class PodcastEpisodeParser: NSObject, XMLParserDelegate {
     let feedParser: PodcastFeedParser
-    var currentEpisode: PodcastEpisode
+//    var currentEpisode: PodcastEpisode
     var currentElementText: String?
     
     //core data
@@ -20,7 +20,7 @@ class PodcastEpisodeParser: NSObject, XMLParserDelegate {
     
     init(feedParser: PodcastFeedParser, xmlParser: XMLParser, sharedObject: NSManagedObjectContext) {
         self.feedParser = feedParser
-        self.currentEpisode = PodcastEpisode()
+//        self.currentEpisode = PodcastEpisode()
         self.context = sharedObject
         self.episode = Episode(context: context)
         super.init()
@@ -32,15 +32,15 @@ class PodcastEpisodeParser: NSObject, XMLParserDelegate {
         case "title", "itunes:duration":
             currentElementText = ""
         case "enclosure":
-            if let href = attributeDict["url"], let url = URL(string: href) {
-                currentEpisode.episodeUrl = url
-                episode.episodeUrl = href
+            if let href = attributeDict["url"] {
+//                currentEpisode.episodeUrl = url
+                episode.episodeUrl = href.trimmingCharacters(in: .whitespaces)
             }
             fallthrough
         case "itunes:image":
-            if let href = attributeDict["href"], let url = URL(string: href) {
-                currentEpisode.itunesImageURL = url
-                episode.itunesImageUrl = href
+            if let href = attributeDict["href"] {
+//                currentEpisode.itunesImageURL = url
+                episode.itunesImageUrl = href.trimmingCharacters(in: .whitespaces)
             }
             fallthrough
         default:
@@ -55,10 +55,10 @@ class PodcastEpisodeParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         switch elementName {
         case "title":
-            currentEpisode.title = currentElementText
+//            currentEpisode.title = currentElementText
             episode.title        = currentElementText
         case "itunes:duration":
-            currentEpisode.itunesDuration = currentElementText
+//            currentEpisode.itunesDuration = currentElementText
             episode.itunesDuration        = currentElementText
         case "item":
             parser.delegate = feedParser

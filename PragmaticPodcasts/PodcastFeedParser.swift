@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 class PodcastFeedParser: NSObject, XMLParserDelegate {
-    var currentFeed: PodcastFeed?
+//    var currentFeed: PodcastFeed?
     var currentElementText: String?
     var episodeParser: PodcastEpisodeParser?
     var context: NSManagedObjectContext
@@ -44,7 +44,7 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     //XMLParserDelegate is tedious but it “saves the memory hit of creating an entire DOM that we might only want a tiny fraction of”
     func parserDidStartDocument(_ parser: XMLParser) {
         NSLog("parserDidStartDocument, currently on line: \(parser.lineNumber)")
-        currentFeed = PodcastFeed()
+//        currentFeed = PodcastFeed()
     }
     
     //callback that knows when we find a element we are looking for
@@ -53,8 +53,8 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
             case "title", "link", "description", "itunes:author":
                 currentElementText = ""
             case "itunes:image":
-                if let href = attributeDict["href"], let url = URL(string: href) {
-                    currentFeed?.itunesImageUrl = url
+                if let href = attributeDict["href"] {
+//                    currentFeed?.itunesImageUrl = url
                     feed.itunesImageUrl = href
                 }
                 fallthrough
@@ -75,22 +75,22 @@ class PodcastFeedParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         switch elementName {
         case "title":
-            currentFeed?.title = currentElementText
+//            currentFeed?.title = currentElementText
             feed.title = currentElementText
         case "link":
             if let linkText = currentElementText {
-                currentFeed?.link = URL(string: linkText)
+//                currentFeed?.link = URL(string: linkText)
                 feed.link = linkText
             }
         case "description":
-                currentFeed?.description = currentElementText
+//                currentFeed?.description = currentElementText
                 feed.feedDescription = currentElementText
         case "itunes:author":
-            currentFeed?.itunesAuthor = currentElementText
+//            currentFeed?.itunesAuthor = currentElementText
             feed.itunesAuthor = currentElementText
         case "item":
-            if let episode = episodeParser?.currentEpisode, let episodeData = episodeParser?.episode {
-                currentFeed?.episodes.append(episode)
+            if let episodeData = episodeParser?.episode {
+//                currentFeed?.episodes.append(episode)
                 feed.addToEpisodes(episodeData)
             }
             episodeParser = nil

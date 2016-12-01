@@ -42,16 +42,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         //refresh podcast list when app fully launches and ui is present or and restore from background
 //        if let url = URL(string: "http://cocoaconf.libsyn.com/rss"), let episodeListVC = application.keyWindow?.rootViewController as? EpisodeListViewController {
-        if let url = URL(string: "http://cocoaconf.libsyn.com/rss"), let topNav = application.keyWindow?.rootViewController as? UINavigationController, let episodeListVC = topNav.viewControllers.first as? EpisodeListViewController {
-            let objectContext = coreDataStack.persistentContainer.viewContext
-            let parser = PodcastFeedParser(contentsOf: url, sharedObjectContext: objectContext)
-            parser.onParserFinished = {
-                [weak episodeListVC] in
-                if let feed = parser.currentFeed {
-                    episodeListVC?.feeds = [feed]
-                }
+//        if let url = URL(string: "http://cocoaconf.libsyn.com/rss"), let topNav = application.keyWindow?.rootViewController as? UINavigationController, let episodeListVC = topNav.viewControllers.first as? EpisodeListViewController {
+//            let objectContext = coreDataStack.persistentContainer.viewContext
+//            let parser = PodcastFeedParser(contentsOf: url, sharedObjectContext: objectContext)
+//            parser.onParserFinished = {
+//                [weak episodeListVC, weak self] in
+//                if let feed = parser.currentFeed {
+//                    episodeListVC?.feeds = [feed]
+//                }
+//            }
+//        }
+        if let topNav = application.keyWindow?.rootViewController as? UINavigationController, let episodeListVC = topNav.viewControllers.first as? EpisodeListViewController {
+            let context = coreDataStack.persistentContainer.viewContext
+            let request = NSFetchRequest<Feed>(entityName: "Feed")
+            do {
+                let fetched = try context.fetch(request)
+                episodeListVC.feeds = fetched
+                print("Got \(episodeListVC.feeds.count) feeds")
+            } catch {
+                print("Fetch failed")
             }
+
         }
+
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

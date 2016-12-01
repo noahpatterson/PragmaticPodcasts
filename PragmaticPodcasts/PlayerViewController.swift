@@ -14,11 +14,14 @@ class PlayerViewController: UIViewController {
     var player: AVPlayer?
     var playerPeriodicObserver: Any?
     
-    var episode: PodcastEpisode? {
+    var episode: Episode? {
         didSet {
             loadViewIfNeeded()
-            trackLabel.text = episode?.title
-            if let url = episode?.episodeUrl {
+            if let track = episode?.title {
+                trackLabel.text = track
+            }
+            
+            if let episodeUrl = episode?.episodeUrl, let url = URL(string: episodeUrl) {
                 setURL(url: url)
             }
         }
